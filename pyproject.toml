@@ -1,0 +1,47 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "docanchor"
+version = "0.1.0"
+description = "Check that the #anchors in Markdown links actually exist"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Sandesh Bagmare" }]
+keywords = ["markdown", "links", "anchor", "docs", "lint", "documentation"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Typing :: Typed",
+]
+dependencies = []
+
+[project.scripts]
+docanchor = "docanchor.__main__:main"
+
+[project.urls]
+Homepage = "https://github.com/sandeshbagmare/docanchor"
+Issues = "https://github.com/sandeshbagmare/docanchor/issues"
+Changelog = "https://github.com/sandeshbagmare/docanchor/blob/main/CHANGELOG.md"
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/docanchor"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
