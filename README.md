@@ -1,24 +1,23 @@
-# docanchor
+<p align="center">
+  <img src="https://raw.githubusercontent.com/sandeshbagmare/docanchor/main/assets/banner.svg" width="100%" alt="docanchor: catch every broken heading anchor in your docs">
+</p>
 
-Find the Markdown links that point at headings that no longer exist.
+<p align="center">
+  <a href="https://pypi.org/project/docanchor/"><img alt="PyPI version" src="https://img.shields.io/pypi/v/docanchor.svg"></a>
+  <a href="https://pypi.org/project/docanchor/"><img alt="Python versions" src="https://img.shields.io/pypi/pyversions/docanchor.svg"></a>
+  <a href="https://pypi.org/project/docanchor/"><img alt="Downloads" src="https://img.shields.io/pypi/dm/docanchor.svg"></a>
+  <a href="https://github.com/sandeshbagmare/docanchor/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/sandeshbagmare/docanchor/actions/workflows/ci.yml/badge.svg"></a>
+  <a href="https://github.com/sandeshbagmare/docanchor/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/docanchor.svg"></a>
+  <a href="https://sandeshbagmare.github.io/docanchor/"><img alt="docs" src="https://img.shields.io/badge/docs-online-2ea44f.svg"></a>
+  <a href="https://pypi.org/project/docanchor/"><img alt="zero dependencies" src="https://img.shields.io/badge/dependencies-0-2ea44f.svg"></a>
+</p>
 
-[![PyPI](https://img.shields.io/pypi/v/docanchor.svg)](https://pypi.org/project/docanchor/)
-[![Python](https://img.shields.io/pypi/pyversions/docanchor.svg)](https://pypi.org/project/docanchor/)
-[![tests](https://github.com/sandeshbagmare/docanchor/actions/workflows/ci.yml/badge.svg)](https://github.com/sandeshbagmare/docanchor/actions/workflows/ci.yml)
-[![license](https://img.shields.io/pypi/l/docanchor.svg)](https://github.com/sandeshbagmare/docanchor/blob/main/LICENSE)
+<h3 align="center">catch every broken heading anchor in your docs</h3>
+<p align="center"><em>Standard library only. No runtime dependencies. Python 3.9+.</em></p>
 
-```console
-$ docanchor README.md docs/*.md
-README.md:42: docs/install.md#quick-start is not a heading there
-2 files, 1 broken anchor(s)
-```
-
-A link checker follows `docs/install.md` and finds the page, so it reports nothing.
-The `#quick-start` on the end is the fragile part: rename the heading and every link
-to it silently lands at the top of the page. `docanchor` parses the headings the way
-GitHub's renderer does and checks the anchor really exists.
-
-No network, no crawler, no configuration: point it at your Markdown files.
+<p align="center">
+  <img src="https://raw.githubusercontent.com/sandeshbagmare/docanchor/main/assets/how.svg" width="720" alt="how docanchor fits in">
+</p>
 
 ## Install
 
