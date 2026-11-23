@@ -232,3 +232,47 @@ class TestCommandLine:
         path.write_text("# Setup\n\n[go](#install)\n", encoding="utf-8")
         assert self.run([str(path), "--quiet"]) == 1
         assert "file, " not in capsys.readouterr().out
+
+
+class TestRigour:
+    """A file that two links point at is read once and reused."""
+
+    def test_a_target_read_twice_comes_from_the_cache(self, tmp_path, monkeypatch):
+        from pathlib import Path
+
+        target = tmp_path / "b.md"
+        target.write_text("# Bee\n\n## Buzz\n", encoding="utf-8")
+        page = tmp_path / "a.md"
+        page.write_text(
+            "[one](b.md#bee) and [two](b.md#buzz) and [three](b.md)\n", encoding="utf-8"
+        )
+
+        reads = []
+        real = Path.read_text
+
+        def counting(self, *args, **kwargs):
+            reads.append(self.name)
+            return real(self, *args, **kwargs)
+
+        monkeypatch.setattr(Path, "read_text", counting)
+        problems = check_files([page])
+        assert problems == []
+        assert reads.count("b.md") == 1
+
+    def test_an_unreadable_target_is_not_a_crash(self, tmp_path):
+
+        page = tmp_path / "a.md"
+        page.write_text("[gone](missing.md#x)\n", encoding="utf-8")
+        problems = check_files([page])
+        assert [problem.message for problem in problems] == ["missing.md cannot be read"]
+
+    def test_a_directory_target_cannot_be_read(self, tmp_path):
+        (tmp_path / "sub").mkdir()
+        page = tmp_path / "a.md"
+        page.write_text("[sub](sub#x)\n", encoding="utf-8")
+        assert [problem.message for problem in check_files([page])] == ["sub cannot be read"]
+
+    def test_a_link_without_an_anchor_is_not_checked(self, tmp_path):
+        page = tmp_path / "a.md"
+        page.write_text("[gone](missing.md)\n", encoding="utf-8")
+        assert check_files([page]) == []
